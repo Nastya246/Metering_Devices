@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InstrumentationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Модель">
+    <Key>
+      <PropertyRef Name="id_Model" />
+    </Key>
+    <Property Name="id_Model" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Модель1" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="id_type" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Тип" Relationship="Self.FK_Модель_Тип" FromRole="Модель" ToRole="Тип" />
+    <NavigationProperty Name="Прибор" Relationship="Self.FK_Прибор_Модель" FromRole="Модель" ToRole="Прибор" />
+  </EntityType>
+  <EntityType Name="Прибор">
+    <Key>
+      <PropertyRef Name="Учетный_номер" />
+    </Key>
+    <Property Name="Учетный_номер" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Инвентарный_номер" Type="Int32" Nullable="false" />
+    <Property Name="Id_type" Type="Int32" Nullable="false" />
+    <Property Name="Id_model" Type="Int32" Nullable="false" />
+    <Property Name="Дата_ввода_в_экслуатацию" Type="DateTime" Precision="0" />
+    <Property Name="Дата_поверки" Type="DateTime" Precision="0" />
+    <Property Name="Связь_с_ответственным" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Модель" Relationship="Self.FK_Прибор_Модель" FromRole="Прибор" ToRole="Модель" />
+    <NavigationProperty Name="Тип" Relationship="Self.FK_Прибор_Тип" FromRole="Прибор" ToRole="Тип" />
+  </EntityType>
+  <EntityType Name="Тип">
+    <Key>
+      <PropertyRef Name="Id_Type" />
+    </Key>
+    <Property Name="Id_Type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Тип1" Type="String" MaxLength="60" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Модель" Relationship="Self.FK_Модель_Тип" FromRole="Тип" ToRole="Модель" />
+    <NavigationProperty Name="Прибор" Relationship="Self.FK_Прибор_Тип" FromRole="Тип" ToRole="Прибор" />
+  </EntityType>
+  <Association Name="FK_Модель_Тип">
+    <End Role="Тип" Type="Self.Тип" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Модель" Type="Self.Модель" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Тип">
+        <PropertyRef Name="Id_Type" />
+      </Principal>
+      <Dependent Role="Модель">
+        <PropertyRef Name="id_type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Прибор_Модель">
+    <End Role="Модель" Type="Self.Модель" Multiplicity="1" />
+    <End Role="Прибор" Type="Self.Прибор" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Модель">
+        <PropertyRef Name="id_Model" />
+      </Principal>
+      <Dependent Role="Прибор">
+        <PropertyRef Name="Id_model" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Прибор_Тип">
+    <End Role="Тип" Type="Self.Тип" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Прибор" Type="Self.Прибор" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Тип">
+        <PropertyRef Name="Id_Type" />
+      </Principal>
+      <Dependent Role="Прибор">
+        <PropertyRef Name="Id_type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InstrumentationEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Модель" EntityType="Self.Модель" />
+    <EntitySet Name="Прибор" EntityType="Self.Прибор" />
+    <EntitySet Name="Тип" EntityType="Self.Тип" />
+    <AssociationSet Name="FK_Модель_Тип" Association="Self.FK_Модель_Тип">
+      <End Role="Тип" EntitySet="Тип" />
+      <End Role="Модель" EntitySet="Модель" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Прибор_Модель" Association="Self.FK_Прибор_Модель">
+      <End Role="Модель" EntitySet="Модель" />
+      <End Role="Прибор" EntitySet="Прибор" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Прибор_Тип" Association="Self.FK_Прибор_Тип">
+      <End Role="Тип" EntitySet="Тип" />
+      <End Role="Прибор" EntitySet="Прибор" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

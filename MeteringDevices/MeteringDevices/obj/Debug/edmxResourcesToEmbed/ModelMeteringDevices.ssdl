@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище InstrumentationModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Модель">
+    <Key>
+      <PropertyRef Name="id_Model" />
+    </Key>
+    <Property Name="id_Model" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Модель" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="id_type" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Прибор">
+    <Key>
+      <PropertyRef Name="Учетный номер" />
+    </Key>
+    <Property Name="Учетный номер" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Инвентарный номер" Type="int" Nullable="false" />
+    <Property Name="Id_type" Type="int" Nullable="false" />
+    <Property Name="Id_model" Type="int" Nullable="false" />
+    <Property Name="Дата ввода в экслуатацию" Type="date" />
+    <Property Name="Дата поверки" Type="date" />
+    <Property Name="Связь с ответственным" Type="char" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Тип">
+    <Key>
+      <PropertyRef Name="Id_Type" />
+    </Key>
+    <Property Name="Id_Type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Тип" Type="nchar" MaxLength="60" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Модель_Тип">
+    <End Role="Тип" Type="Self.Тип" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Модель" Type="Self.Модель" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Тип">
+        <PropertyRef Name="Id_Type" />
+      </Principal>
+      <Dependent Role="Модель">
+        <PropertyRef Name="id_type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Прибор_Модель">
+    <End Role="Модель" Type="Self.Модель" Multiplicity="1" />
+    <End Role="Прибор" Type="Self.Прибор" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Модель">
+        <PropertyRef Name="id_Model" />
+      </Principal>
+      <Dependent Role="Прибор">
+        <PropertyRef Name="Id_model" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Прибор_Тип">
+    <End Role="Тип" Type="Self.Тип" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Прибор" Type="Self.Прибор" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Тип">
+        <PropertyRef Name="Id_Type" />
+      </Principal>
+      <Dependent Role="Прибор">
+        <PropertyRef Name="Id_type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище InstrumentationModelContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Модель" EntityType="Self.Модель" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Прибор" EntityType="Self.Прибор" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Тип" EntityType="Self.Тип" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Модель_Тип" Association="Self.FK_Модель_Тип">
+      <End Role="Тип" EntitySet="Тип" />
+      <End Role="Модель" EntitySet="Модель" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Прибор_Модель" Association="Self.FK_Прибор_Модель">
+      <End Role="Модель" EntitySet="Модель" />
+      <End Role="Прибор" EntitySet="Прибор" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Прибор_Тип" Association="Self.FK_Прибор_Тип">
+      <End Role="Тип" EntitySet="Тип" />
+      <End Role="Прибор" EntitySet="Прибор" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
