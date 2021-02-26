@@ -1,0 +1,7 @@
+﻿@model IEnumerable<MeteringDevices.Models.Модель>
+<select id="models" name="models">
+    @foreach (var item in Model)
+    {
+        <option value="@item.Id_models">@item.Название_модели</option>
+    }
+</select>

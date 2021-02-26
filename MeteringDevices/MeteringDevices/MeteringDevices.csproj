@@ -129,36 +129,44 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TypeAndModelsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMeteringDevices.Context.cs">
+    <Compile Include="Models\Instrumentation.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMeteringDevices.Context.tt</DependentUpon>
+      <DependentUpon>Instrumentation.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMeteringDevices.cs">
+    <Compile Include="Models\Instrumentation.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMeteringDevices.tt</DependentUpon>
+      <DependentUpon>Instrumentation.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMeteringDevices.Designer.cs">
+    <Compile Include="Models\Instrumentation.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMeteringDevices.edmx</DependentUpon>
+      <DependentUpon>Instrumentation.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Instrumentation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Instrumentation.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>ModelMeteringDevices.tt</DependentUpon>
+      <DependentUpon>Instrumentation.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Модель.cs">
-      <DependentUpon>ModelMeteringDevices.tt</DependentUpon>
+      <DependentUpon>Instrumentation.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Прибор.cs">
-      <DependentUpon>ModelMeteringDevices.tt</DependentUpon>
+      <DependentUpon>Instrumentation.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Тип.cs">
-      <DependentUpon>ModelMeteringDevices.tt</DependentUpon>
+      <DependentUpon>Instrumentation.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -175,24 +183,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ModelMeteringDevices.Context.tt">
+    <Content Include="Models\Instrumentation.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMeteringDevices.edmx</DependentUpon>
-      <LastGenOutput>ModelMeteringDevices.Context.cs</LastGenOutput>
+      <DependentUpon>Instrumentation.edmx</DependentUpon>
+      <LastGenOutput>Instrumentation.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ModelMeteringDevices.tt">
+    <Content Include="Models\Instrumentation.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMeteringDevices.edmx</DependentUpon>
-      <LastGenOutput>ModelMeteringDevices.cs</LastGenOutput>
+      <DependentUpon>Instrumentation.edmx</DependentUpon>
+      <LastGenOutput>Instrumentation.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\ModelMeteringDevices.edmx">
+    <EntityDeploy Include="Models\Instrumentation.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelMeteringDevices.Designer.cs</LastGenOutput>
+      <LastGenOutput>Instrumentation.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ModelMeteringDevices.edmx.diagram">
-      <DependentUpon>ModelMeteringDevices.edmx</DependentUpon>
+    <Content Include="Models\Instrumentation.edmx.diagram">
+      <DependentUpon>Instrumentation.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -205,7 +213,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -217,8 +227,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\AddDevice.cshtml" />
-    <Content Include="Views\Home\GetModels.cshtml" />
+    <Content Include="Views\Device\AddDevice.cshtml" />
+    <Content Include="Views\Device\GetModels.cshtml" />
+    <Content Include="Views\TypeAndModels\ListTypeAndModelDevices.cshtml" />
+    <Content Include="Views\TypeAndModels\CreateType.cshtml" />
+    <Content Include="Views\TypeAndModels\CreateModel.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

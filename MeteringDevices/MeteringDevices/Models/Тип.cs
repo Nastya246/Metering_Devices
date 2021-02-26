@@ -18,7 +18,6 @@ namespace MeteringDevices.Models
         public Тип()
         {
             this.Модель = new HashSet<Модель>();
-            this.Прибор = new HashSet<Прибор>();
         }
     
         public int Id_Type { get; set; }
@@ -26,7 +25,5 @@ namespace MeteringDevices.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Модель> Модель { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Прибор> Прибор { get; set; }
     }
 }

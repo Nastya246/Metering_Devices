@@ -14,15 +14,13 @@ namespace MeteringDevices.Models
     
     public partial class Прибор
     {
-        public int Учетный_номер { get; set; }
-        public int Инвентарный_номер { get; set; }
-        public int Id_type { get; set; }
-        public int Id_model { get; set; }
-        public Nullable<System.DateTime> Дата_ввода_в_эксплуатацию { get; set; }
+        public int Id_device { get; set; }
+        public Nullable<int> Инвентарный_номер { get; set; }
+        public int Id_models { get; set; }
+        public Nullable<System.DateTime> Дата_ввода_в_экслуатацию { get; set; }
         public Nullable<System.DateTime> Дата_поверки { get; set; }
-        public string Связь_с_ответственным { get; set; }
+        public string Фамилия_ответственного { get; set; }
     
         public virtual Модель Модель { get; set; }
-        public virtual Тип Тип { get; set; }
     }
 }

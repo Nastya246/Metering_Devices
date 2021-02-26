@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InstrumentationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Модель">
+    <Key>
+      <PropertyRef Name="Id_models" />
+    </Key>
+    <Property Name="Id_models" Type="Int32" Nullable="false" />
+    <Property Name="Название_модели" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Id_type" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Тип" Relationship="Self.FK_Модель_Тип" FromRole="Модель" ToRole="Тип" />
+    <NavigationProperty Name="Прибор" Relationship="Self.FK_Прибор_Модель" FromRole="Модель" ToRole="Прибор" />
+  </EntityType>
+  <EntityType Name="Прибор">
+    <Key>
+      <PropertyRef Name="Id_device" />
+    </Key>
+    <Property Name="Id_device" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Инвентарный_номер" Type="Int32" />
+    <Property Name="Id_models" Type="Int32" Nullable="false" />
+    <Property Name="Дата_ввода_в_экслуатацию" Type="DateTime" Precision="0" />
+    <Property Name="Дата_поверки" Type="DateTime" Precision="0" />
+    <Property Name="Фамилия_ответственного" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Модель" Relationship="Self.FK_Прибор_Модель" FromRole="Прибор" ToRole="Модель" />
+  </EntityType>
+  <EntityType Name="Тип">
+    <Key>
+      <PropertyRef Name="Id_Type" />
+    </Key>
+    <Property Name="Id_Type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Тип1" Type="String" MaxLength="60" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Модель" Relationship="Self.FK_Модель_Тип" FromRole="Тип" ToRole="Модель" />
+  </EntityType>
+  <Association Name="FK_Модель_Тип">
+    <End Role="Тип" Type="Self.Тип" Multiplicity="1" />
+    <End Role="Модель" Type="Self.Модель" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Тип">
+        <PropertyRef Name="Id_Type" />
+      </Principal>
+      <Dependent Role="Модель">
+        <PropertyRef Name="Id_type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Прибор_Модель">
+    <End Role="Модель" Type="Self.Модель" Multiplicity="1" />
+    <End Role="Прибор" Type="Self.Прибор" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Модель">
+        <PropertyRef Name="Id_models" />
+      </Principal>
+      <Dependent Role="Прибор">
+        <PropertyRef Name="Id_models" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InstrumentationEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Модель" EntityType="Self.Модель" />
+    <EntitySet Name="Прибор" EntityType="Self.Прибор" />
+    <EntitySet Name="Тип" EntityType="Self.Тип" />
+    <AssociationSet Name="FK_Модель_Тип" Association="Self.FK_Модель_Тип">
+      <End Role="Тип" EntitySet="Тип" />
+      <End Role="Модель" EntitySet="Модель" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Прибор_Модель" Association="Self.FK_Прибор_Модель">
+      <End Role="Модель" EntitySet="Модель" />
+      <End Role="Прибор" EntitySet="Прибор" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(InstrumentationModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(InstrumentationModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

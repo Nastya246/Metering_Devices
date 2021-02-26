@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MeteringDevices.Models.Тип>
+
+@{
+    ViewBag.Title = "Типы и модели оборудования";
+}
+
+<h2>Типы и модели оборудования</h2>
+
+<p>
+    @Html.ActionLink("Добавить в словарь новый тип оборудования", "CreateType")
+
+</p>
+<p>
+
+    @Html.ActionLink("Добавить в словарь новую модель", "CreateModel")
+</p>
+<table class="table">
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Тип1)
+
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id_Type }) | 
+
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id_Type })
+            </td>
+        </tr>
+
+        foreach (var item1 in item.Модель)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor( model => item1.Название_модели)
+
+                </td>
+                <td>
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.Id_Type }) |
+
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id_Type })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
