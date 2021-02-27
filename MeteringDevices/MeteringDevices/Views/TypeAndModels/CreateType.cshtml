@@ -6,12 +6,12 @@
 
 <h2>Добавить тип оборудования</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-       
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -30,6 +30,5 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<p>  @Html.ActionLink("Вернуться к списку типов и моделей", "ListTypeAndModelDevices") </p>
+<p>  @Html.ActionLink("Вернуться в меню", "Index", "Home", null, null) </p>

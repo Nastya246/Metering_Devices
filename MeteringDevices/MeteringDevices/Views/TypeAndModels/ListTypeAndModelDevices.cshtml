@@ -21,13 +21,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Тип1)
+                <big> <big> @item.Тип1</big></big>
 
-            </td>
+</td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id_Type }) | 
 
-                @Html.ActionLink("Удалить", "Delete", new { id = item.Id_Type })
+
+              <small>  @Html.ActionLink("Удалить", "DeleteType", new { id = item.Id_Type }) </small>
             </td>
         </tr>
 
@@ -35,16 +35,26 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor( model => item1.Название_модели)
+                     @item1.Название_модели
 
                 </td>
                 <td>
-                    @Html.ActionLink("Редактировать", "Edit", new { id = item.Id_Type }) |
+                    <small>
+                        @Html.ActionLink("Изменить", "EditModel", new { id = item1.Id_models }) |
 
-                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id_Type })
-                </td>
+                        @Html.ActionLink("Удалить", "DeleteModel", new { id = item1.Id_models })
+                    </small>
+</td>
             </tr>
         }
+        <tr>
+            <td>
+                <br />
+            </td>
+
+        </tr>
     }
 
 </table>
+
+<p>  @Html.ActionLink("Вернуться в меню", "Index", "Home", null, null) </p>

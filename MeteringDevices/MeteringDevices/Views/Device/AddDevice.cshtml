@@ -15,16 +15,10 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-       
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.Label("Учетный номер", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Id_device, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Id_device, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
 
         <div class="form-group">
             @Html.Label("Инвентарный номер", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -40,7 +34,7 @@
             <div class="col-md-10">
                 @Html.DropDownList("types", ViewBag.types as SelectList, "--Выбор типа прибора--", new { id = "types" })
             </div>
-            </div>
+        </div>
 
         <div class="form-group">
             @Html.Label("Модель прибора", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,38 +43,41 @@
             </div>
         </div>
 
-            <div class="form-group">
-                @Html.Label("Дата ввода в эксплуатацию", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Дата_ввода_в_экслуатацию, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Дата_ввода_в_экслуатацию, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Дата поверки", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Дата_поверки, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Дата_поверки, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Связь с ответственным", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Фамилия_ответственного, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Фамилия_ответственного, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-
-                    <input type="submit" value="Создать" class="btn btn-default" />
-
-                </div>
+        <div class="form-group">
+            @Html.Label("Дата ввода в эксплуатацию", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Дата_ввода_в_экслуатацию, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Дата_ввода_в_экслуатацию, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.Label("Дата поверки", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Дата_поверки, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Дата_поверки, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Связь с ответственным", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Фамилия_ответственного, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Фамилия_ответственного, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                <input type="submit" value="Создать" class="btn btn-default" />
+
+            </div>
+        </div>
+    </div>
+
+    <p> @Html.ActionLink("Список оборудования", "ListDevices") </p>
+    <p> @Html.ActionLink("Вернуться в меню", "Index", "Home", null, null) </p>
 }
 
 

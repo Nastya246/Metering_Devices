@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MeteringDevices.Models.Прибор>
+
+@{
+    ViewBag.Title = "ListDevices";
+}
+
+<h2>Список оборудования</h2>
+
+<p>
+    @Html.ActionLink("Добавить оборудование", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Учетный номер")
+
+        </th>
+        <th>
+            @Html.Label("Инвентарный номер")
+        </th>
+        <th>
+            @Html.Label("Дата ввода в эксплуатацию")
+        </th>
+        <th>
+            @Html.Label("Дата поверки")
+        </th>
+        <th>
+            @Html.Label("Название модели")
+        </th>
+        <th>
+            @Html.Label("Ответственный")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_device)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Инвентарный_номер)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Дата_ввода_в_экслуатацию)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Дата_поверки)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Модель.Название_модели)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Фамилия_ответственного)
+            </td>
+
+            <td>
+           <small>     @Html.ActionLink("Изменить", "EditDevice", new { id = item.Id_device }) |
+
+                @Html.ActionLink("Удалить", "DeleteDevice", new { id = item.Id_device })
+               </small>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p> @Html.ActionLink("Вернуться в меню", "Index", "Home", null, null) </p>

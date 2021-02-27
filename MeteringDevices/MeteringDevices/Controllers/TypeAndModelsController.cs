@@ -3,6 +3,7 @@ using MeteringDevices.Models;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 namespace MeteringDevices.Controllers
 {
     public class TypeAndModelsController : Controller
@@ -17,7 +18,8 @@ namespace MeteringDevices.Controllers
         public async Task<ActionResult> ListTypeAndModelDevices()
         {
 
-           var typeAndModels = await (db.Тип.Include(t => t.Модель)).ToListAsync();
+           var typeAndModels = await (db.Тип.OrderBy(t => t.Тип1).Include(t => t.Модель)).ToListAsync();
+           
 
          
             return View(typeAndModels);
@@ -78,6 +80,82 @@ namespace MeteringDevices.Controllers
             }
             return RedirectToAction("ListTypeAndModelDevices");
 
+        }
+   
+
+        public async Task<ActionResult> DeleteType(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var type = await db.Тип.FindAsync(id);
+            if (type == null)
+            {
+                return HttpNotFound();
+            }
+            return View(type);
+        }
+
+     
+        [HttpPost, ActionName("DeleteType")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteType(int id)
+        {
+            var type = await db.Тип.FindAsync(id); 
+            var models = await (from m in db.Модель where m.Id_type == id select m).ToListAsync(); 
+            foreach (var el in models)
+            {
+                var resultDelete = await (from d in db.Прибор where d.Id_models == el.Id_models select d).ToListAsync(); 
+                foreach (var device in resultDelete)
+                {
+                    db.Прибор.Remove(device);
+                }
+            }
+
+            foreach (var model in models)
+            {
+                db.Модель.Remove(model);
+            }
+
+            db.Тип.Remove(type); 
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("ListTypeAndModelDevices");
+        }
+
+
+        public async Task<ActionResult> DeleteModel(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var type = await db.Модель.FindAsync(id);
+            if (type == null)
+            {
+                return HttpNotFound();
+            }
+            return View(type);
+        }
+
+        // POST: Разделы/Delete/5
+        [HttpPost, ActionName("DeleteModel")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteModel(int id)
+        {
+            var model = await db.Модель.FindAsync(id);
+            var deviceOfModel = await (from d in db.Прибор where d.Id_models == id select d).ToListAsync();
+            foreach (var el in deviceOfModel)
+            {                             
+               db.Прибор.Remove(el);
+                
+            }
+           
+            db.Модель.Remove(model);
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("ListTypeAndModelDevices");
         }
     }
 }

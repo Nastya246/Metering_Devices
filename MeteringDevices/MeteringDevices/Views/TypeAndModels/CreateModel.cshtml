@@ -6,15 +6,15 @@
 
 <h2>Добавить модель</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+
 
         <div class="form-group">
             @Html.Label("Наименование модели", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.Label("Тип модели", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-               
+
                 @Html.DropDownListFor(model => model.Id_type, ViewBag.types as SelectList)
                 @Html.ValidationMessageFor(model => model.Id_type, "", new { @class = "text-danger" })
             </div>
@@ -41,6 +41,6 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
+<p>  @Html.ActionLink("Вернуться к списку типов и моделей", "ListTypeAndModelDevices") </p>
+<p>  @Html.ActionLink("Вернуться в меню", "Index", "Home", null, null) </p>

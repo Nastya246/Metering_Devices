@@ -84,3 +84,4 @@ D:\Metering devices\MeteringDevices\MeteringDevices\obj\Debug\MeteringDevices.cs
 D:\Metering devices\MeteringDevices\MeteringDevices\obj\Debug\MeteringDevices.csproj.CopyComplete
 D:\Metering devices\MeteringDevices\MeteringDevices\obj\Debug\MeteringDevices.dll
 D:\Metering devices\MeteringDevices\MeteringDevices\obj\Debug\MeteringDevices.pdb
+D:\Metering devices\MeteringDevices\MeteringDevices\obj\Debug\MeteringDevices.csprojAssemblyReference.cache

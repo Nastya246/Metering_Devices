@@ -18,10 +18,10 @@ namespace MeteringDevices.Controllers
             return View();
         }
 
-        public ActionResult ListDevices()
+        public async Task<ActionResult> ListDevices()
         {
-
-            return View();
+            var devices = await db.Прибор.OrderBy(d => d.Модель.Название_модели).ToListAsync();
+            return View(devices);
         }
 
         public ActionResult AddDevice()
@@ -54,20 +54,21 @@ namespace MeteringDevices.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddDevice([Bind(Include = "Учетный_номер, Инвентарный_номер, Id_models, Дата_ввода_в_экслуатацию, Дата_поверки, Фамилия_ответственного")] Прибор device)
+        public async Task<ActionResult> AddDevice([Bind(Include = "Учетный_номер, Инвентарный_номер, Id_models, Дата_ввода_в_экслуатацию, Дата_поверки, Фамилия_ответственного")] Прибор device, int models)
         {
-            // НЕ ПРИХОДИТ ИНДЕКС МОДЕЛИ
+           
             if (ModelState.IsValid)
             {
                 var position = await (from d in db.Прибор where d.Инвентарный_номер == device.Инвентарный_номер select d).ToListAsync();
                 if (position.Count() == 0)
                 {
+                    device.Id_models = models;
                     db.Прибор.Add(device);
                     await db.SaveChangesAsync();
                 }
             }
 
-            return RedirectToAction("Index"); // Список вернуть!!!
+            return RedirectToAction("ListDevices"); // Список вернуть!!!
 
         }
         public async Task<ActionResult> GetModels(int id)

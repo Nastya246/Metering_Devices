@@ -1,0 +1,44 @@
+﻿@model MeteringDevices.Models.Модель
+
+@{
+    ViewBag.Title = "DeleteModel";
+}
+
+<h2>Удалить модель оборудования</h2>
+
+<h3>Вы действительно хотите удалить данную модель оборудования?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Название_модели)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Название_модели)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Тип.Тип1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Тип.Тип1)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" />
+
+        </div>
+
+    }
+</div>
+<p>  @Html.ActionLink("Вернуться к списку типов и моделей", "ListTypeAndModelDevices") </p>
+<p>  @Html.ActionLink("Вернуться в меню", "Index", "Home", null, null) </p>
