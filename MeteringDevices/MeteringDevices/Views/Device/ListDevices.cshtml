@@ -7,7 +7,7 @@
 <h2>Список оборудования</h2>
 
 <p>
-    @Html.ActionLink("Добавить оборудование", "Create")
+    @Html.ActionLink("Добавить оборудование", "AddDevice", "Device", null, null)
 </p>
 <table class="table">
     <tr>
@@ -28,7 +28,7 @@
             @Html.Label("Название модели")
         </th>
         <th>
-            @Html.Label("Ответственный")
+            @Html.Label("Связь с ответственным")
         </th>
         <th></th>
     </tr>

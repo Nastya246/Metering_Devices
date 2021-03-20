@@ -12,18 +12,28 @@ namespace MeteringDevices.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System;
-    using System.Collections.Generic;
+    
     
     public partial class Прибор
     {
         public int Id_device { get; set; }
+
         [Required(ErrorMessage = "Поле обязательно для заполнения!")]
+      //  [StringLength(30, MinimumLength = 1, ErrorMessage = "Длина строки должна быть от 1 до 30 символов")]
         public Nullable<int> Инвентарный_номер { get; set; }
+
         [Required(ErrorMessage = "Поле обязательно для заполнения!")]
         public int Id_models { get; set; }
+
+        [RegularExpression(@"\d{2}.\d{2}.\d{4}", ErrorMessage = "Некорректная дата")]
         public Nullable<System.DateTime> Дата_ввода_в_экслуатацию { get; set; }
+
+        [RegularExpression(@"\d{2}.\d{2}.\d{4}", ErrorMessage = "Некорректная дата")]
         public Nullable<System.DateTime> Дата_поверки { get; set; }
-        [Required(ErrorMessage = "Поле обязательно для заполнения!")]
+
+       [Required(ErrorMessage = "Поле обязательно для заполнения!")]
+      //  [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
+     
         public string Фамилия_ответственного { get; set; }
     
         public virtual Модель Модель { get; set; }

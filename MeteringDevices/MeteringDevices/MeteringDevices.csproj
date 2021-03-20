@@ -235,6 +235,7 @@
     <Content Include="Views\Device\ListDevices.cshtml" />
     <Content Include="Views\TypeAndModels\DeleteType.cshtml" />
     <Content Include="Views\TypeAndModels\DeleteModel.cshtml" />
+    <Content Include="Views\Device\EditDevice.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
