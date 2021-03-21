@@ -22,6 +22,7 @@ namespace MeteringDevices.Models
     
         public int Id_Type { get; set; }
         [Required(ErrorMessage = "Поле обязательно для заполнения!")]
+        [Display(Name = "Тип оборудования")]
         public string Тип1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

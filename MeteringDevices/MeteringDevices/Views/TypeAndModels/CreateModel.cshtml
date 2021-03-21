@@ -5,40 +5,46 @@
 }
 
 <h2>Добавить модель</h2>
-
-@using (Html.BeginForm())
+@if (ViewBag.err == 1)
 {
-    @Html.AntiForgeryToken()
+    <p><big>Вы не можете добавить модель оборудования, пока не сохраните хоть один тип оборудования!</big></p>
+}
+else
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+        <div class="form-horizontal">
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-        <div class="form-group">
-            @Html.Label("Наименование модели", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Название_модели, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Название_модели, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Наименование модели", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Название_модели, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Название_модели, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Тип модели", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.DropDownListFor(model => model.Id_type, ViewBag.types as SelectList)
+                    @Html.ValidationMessageFor(model => model.Id_type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Сохранить" class="btn btn-default" />
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.Label("Тип модели", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-
-                @Html.DropDownListFor(model => model.Id_type, ViewBag.types as SelectList)
-                @Html.ValidationMessageFor(model => model.Id_type, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    }
 }
 
 

@@ -1,0 +1,74 @@
+﻿@model MeteringDevices.Models.Прибор
+
+@{
+    ViewBag.Title = "SendMessage";
+}
+
+<h2>Отправить сообщение ответственному</h2>
+
+@using (Html.BeginForm())
+{
+<div>
+    <h4>Прибор</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Инвентарный_номер)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Инвентарный_номер)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Дата_ввода_в_экслуатацию)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_ввода_в_экслуатацию)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Дата_поверки)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_поверки)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Модель.Название_модели)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Модель.Название_модели)
+        </dd>
+
+    </dl>
+
+    <div class="col-md-10">
+        <p>Ваше имя: </p>
+        <input type="text" name="senderName"  />
+    </div>
+
+    <div class="col-md-10">
+        <p>Введите сообщение: </p>
+        <input type="text" name="message" />
+    </div>
+
+    <div class="col-md-10">
+        <p>Почта ответственного: </p>
+        <input type="text" name="mail" value="@ViewBag.mail" />
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Отправить" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+        <p> @Html.ActionLink("Список оборудования", "ListDevices") </p>
+        <p> @Html.ActionLink("Вернуться в меню", "Index", "Home", null, null) </p>
+

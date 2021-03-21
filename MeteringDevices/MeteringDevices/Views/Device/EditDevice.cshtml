@@ -12,64 +12,97 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Прибор</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id_device)
+<div class="form-horizontal">
+    <h4>Прибор</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id_device)
 
-        <div class="form-group">
-            @Html.Label("Инвентарный номер", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Инвентарный_номер, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Инвентарный_номер, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Тип прибора", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("types", ViewBag.types as SelectList, new { id = "types" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Модель прибора", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                 @Html.DropDownList("models", ViewBag.models as SelectList, new { id = "models" }) 
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Дата ввода в эксплуатацию", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Дата_ввода_в_экслуатацию, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Дата_ввода_в_экслуатацию, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Дата поверки", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Дата_поверки, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Дата_поверки, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Электронная почта ответственного", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Фамилия_ответственного, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Фамилия_ответственного, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Сохранить" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.Label("Инвентарный номер", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Инвентарный_номер, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Инвентарный_номер, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.Label("Тип прибора", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            <select id="types" name="types">
+
+                @for (int i = 0; i < ViewBag.countType; i++)
+                {
+                    if (ViewBag.idType[i] == ViewBag.selectType)
+                    {
+                        <option selected value="@ViewBag.idType[i]">@ViewBag.nameType[i]</option>
+                    }
+                    else
+                    {
+                        <option value="@ViewBag.idType[i]">@ViewBag.nameType[i]</option>
+                    }
+                }               
+            </select>
+
+
+            <!-- Html.DropDownList("types", ViewBag.types as SelectList, new { id = "types" }) -->
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Модель прибора", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            <select id="models" name="models">
+
+                @for (int i = 0; i < ViewBag.countModel; i++)
+                {
+                    if (ViewBag.idModel[i] == ViewBag.selectModel)
+                    {
+                       <option selected value="@ViewBag.idModel[i]">@ViewBag.nameModel[i]</option>
+                    }
+                    else
+                    {
+                       <option value="@ViewBag.idModel[i]">@ViewBag.nameModel[i]</option>
+                    }
+                }
+            </select>
+
+
+            <!-- Html.DropDownList("models", ViewBag.models as SelectList, new { id = "models" }) -->
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Дата ввода в эксплуатацию", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="date" id="date" name="dateExp" class="form-control" value="@ViewBag.dataExp" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Дата поверки", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="date" id="date" name="dateCheck" class="form-control" value="@ViewBag.dataCheck" />
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Электронная почта ответственного", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Фамилия_ответственного, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Фамилия_ответственного, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 
     <p> @Html.ActionLink("Список оборудования", "ListDevices") </p>
     <p> @Html.ActionLink("Вернуться в меню", "Index", "Home", null, null) </p>

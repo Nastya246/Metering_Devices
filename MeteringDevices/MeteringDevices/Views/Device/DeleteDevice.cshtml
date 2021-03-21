@@ -1,0 +1,67 @@
+﻿@model MeteringDevices.Models.Прибор
+
+@{
+    ViewBag.Title = "DeleteDevice";
+}
+
+<h2>Удалить запись о приборе</h2>
+
+<h3>Вы действительно хотите удалить данные о приборе?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Инвентарный_номер)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Инвентарный_номер)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Дата_ввода_в_экслуатацию)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_ввода_в_экслуатацию)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Дата_поверки)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Дата_поверки)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Фамилия_ответственного)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Фамилия_ответственного)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Модель.Название_модели)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Модель.Название_модели)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> 
+          
+        </div>
+    }
+</div>
+<p>  @Html.ActionLink("Вернуться к списку оборудования", "ListDevices") </p>
+<p>  @Html.ActionLink("Вернуться в меню", "Index", "Home", null, null) </p>

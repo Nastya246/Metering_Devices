@@ -21,8 +21,11 @@ namespace MeteringDevices.Models
         }
     
         public int Id_models { get; set; }
+        [Display(Name = "Название модели")]
         [Required(ErrorMessage = "Поле обязательно для заполнения!")]
         public string Название_модели { get; set; }
+
+        [Display(Name = "Тип оборудования")]
         public int Id_type { get; set; }
     
         public virtual Тип Тип { get; set; }

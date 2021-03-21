@@ -42,18 +42,28 @@ namespace MeteringDevices.Controllers
                 {                 
                     db.Тип.Add(type);
                     await db.SaveChangesAsync();
-                    
-                }                                 
-                
+                    return RedirectToAction("ListTypeAndModelDevices");
+                }
+               
             }
-            return RedirectToAction("ListTypeAndModelDevices");
+            return View("~/Views/Home/Error.cshtml");
+           
 
         }
         public ActionResult CreateModel()
         {
-            SelectList types = new SelectList(db.Тип, "Id_Type", "Тип1");
-            ViewBag.types = types;
-            return View();
+            int countType = db.Тип.Count();
+            if (countType != 0)
+            {
+                SelectList types = new SelectList(db.Тип, "Id_Type", "Тип1");
+                ViewBag.types = types;
+            }
+            else
+            {
+                ViewBag.err = 1;  
+            }
+                return View();
+            
            
         }
 
@@ -74,11 +84,12 @@ namespace MeteringDevices.Controllers
                     model.Id_models = id;
                     db.Модель.Add(model);
                     await db.SaveChangesAsync();
-
+                    return RedirectToAction("ListTypeAndModelDevices");
                 }
-
+               
             }
-            return RedirectToAction("ListTypeAndModelDevices");
+            return View("~/Views/Home/Error.cshtml");
+           
 
         }
    
@@ -157,5 +168,7 @@ namespace MeteringDevices.Controllers
 
             return RedirectToAction("ListTypeAndModelDevices");
         }
+
+        
     }
 }
